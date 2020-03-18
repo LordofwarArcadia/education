@@ -23,7 +23,6 @@ public class Application {
 
         System.out.println(c);
 
-
         PhoneIn oldPhone = new OldPhone();
         PhoneIn ussrPhone = new Phone();
         PhoneIn smartPhone = new SmartPhone();

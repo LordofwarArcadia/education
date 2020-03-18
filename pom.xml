@@ -6,7 +6,11 @@
 
     <groupId>edu.marina</groupId>
     <artifactId>day-one</artifactId>
+    <packaging>pom</packaging>
     <version>1.0.0-SNAPSHOT</version>
+    <modules>
+        <module>daytwo</module>
+    </modules>
 
     <dependencies>
         <dependency>
