@@ -1,4 +1,3 @@
-import sun.jvm.hotspot.utilities.AssertionFailure;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -166,20 +165,7 @@ public class Application {
         if(expected.size()!=0){
             //ERROR
             System.out.println(expected);
-            throw new AssertionFailure();
         }
-        /*
-        String[] mapped = new String[initial.length];
-
-        for (int j = 0; j < initial.length; j++) {
-            Integer initVal = initial[j];
-            if(map.containsKey(initVal)){
-                String mappedVal = map.get(initVal);
-                mapped[j] = mappedVal;
-            }else {
-                mapped[j] = "Unknown key " + initVal;
-            }
-        }*/
 
 
     }
