@@ -1,3 +1,5 @@
+package dayfore;
+
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
@@ -106,6 +108,8 @@ public class DayFour {
     }
 
     public static class User {
+
+        public Integer id;
 
         public String name;
 
