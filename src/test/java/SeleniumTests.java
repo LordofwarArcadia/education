@@ -3,21 +3,19 @@ import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
 import org.openqa.selenium.By;
-import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebDriverException;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
-import org.openqa.selenium.support.ui.WebDriverWait;
+import pages.CashCreditPage;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.concurrent.TimeUnit;
-
-import static org.openqa.selenium.support.ui.ExpectedConditions.presenceOfElementLocated;
 
 public class SeleniumTests {
 
     WebDriver driver;
-
-    WebDriverWait wait;
 
     @BeforeClass
     public static void addDriverToPath() {
@@ -28,9 +26,7 @@ public class SeleniumTests {
     public void setupDriver() {
         driver = new ChromeDriver();
         driver.manage().timeouts().implicitlyWait(3, TimeUnit.SECONDS);
-        driver.get("https://google.com/ncr"); //<<- https://sberbank.ru
-
-        wait = new WebDriverWait(driver, 10);
+        driver.get("https://www.sberbank.ru/ru/person/credits/money/consumer_unsecured");
     }
 
     @After
@@ -39,11 +35,38 @@ public class SeleniumTests {
     }
 
     @Test
-    public void simpleSeleniumTest() {
-        driver.findElement(By.name("q")).sendKeys("cheese" + Keys.ENTER);
-        WebElement firstResult = wait.until(presenceOfElementLocated(By.cssSelector("h3>div")));
-        System.out.println(firstResult.getAttribute("textContent"));
+    public void simpleSeleniumTest() throws Exception {
+        CashCreditPage page = new CashCreditPage(driver);
+
+        // Act
+        page.fillMoneyAmount(1000000);
+        page.fillMonthAmount(50);
+
+        // Assert
+        assert page.getMonthlyPayment().equals("25 959");
+
+        List<WebElement> list = new ArrayList<>();
+        list.add(driver.findElement(By.xpath("//body")));
+
+        WebElement first = list.stream()
+            .filter(we -> {
+                String href = we.getAttribute("href");
+                return href != null && href.equals("");
+            })
+            .findFirst()
+            .orElseThrow(() -> new RuntimeException(""));
+
+        list.stream()
+            .filter(we -> {
+                String href = we.getAttribute("href");
+                return href != null && href.equals("");
+            })
+            .findFirst()
+            .orElseThrow(RuntimeException::new);
+
     }
+
+
 }
 
 /*

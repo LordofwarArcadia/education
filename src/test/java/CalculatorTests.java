@@ -22,7 +22,7 @@ public class CalculatorTests  extends AbstractTestBase{
     // Given on the homepage
     // When I click Login button
     // Then Login popup is opened
-    // Then fields are enabled
+    // Then fields areFireworksExist enabled
 
     private Calculator calc;
 
