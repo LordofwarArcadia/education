@@ -6,8 +6,8 @@ import org.openqa.selenium.WebElement;
 
 abstract class GenericCreditPage extends BasePage {
 
-    GenericCreditPage(WebDriver driver) {
-        super(driver);
+    GenericCreditPage(WebDriver driver, String title) {
+        super(driver,title);
     }
 
     protected WebElement getCalcForm() {

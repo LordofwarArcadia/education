@@ -4,11 +4,16 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
+import pages.sections.MainMenu;
 
 public class CashCreditPage extends GenericCreditPage {
 
+    public MainMenu menu;
+
     public CashCreditPage(WebDriver driver) {
-        super(driver);
+        super(driver, "Сбербанк. Потребительский кредит на любые цели.");
+        closeCookie();
+        menu = new MainMenu(driver);
     }
 
     public String getMonthlyPayment() {
@@ -18,21 +23,36 @@ public class CashCreditPage extends GenericCreditPage {
             .getText();
     }
 
-    public void fillMoneyAmount(Integer value) {
-        fillMoneyAmount(value.toString());
+    public void fillMoneyAmountAndSubmit(Integer value) {
+        fillMoneyAmountAndSubmit(value.toString());
     }
 
-    public void fillMoneyAmount(String value) {
+    public void fillMoneyAmountAndSubmit(String value) {
+        clickOnSpanMoney();
+        fillAmountInput(value).sendKeys(Keys.ENTER);
+    }
+
+    public void fillMoneyAmountWithoutSubmit(String value) {
+        clickOnSpanMoney();
+        fillAmountInput(value);
+    }
+
+    private WebElement getAmountRow(){
         WebElement amountRow = getCalcForm().findElement(By.xpath(".//div[.='Сколько вам нужно']/.."));
         scrollToElement(amountRow);
+        return amountRow;
+    }
 
-        WebElement amountField = amountRow.findElement(By.xpath(".//span"));
+    private void clickOnSpanMoney(){
+        WebElement amountField = getAmountRow().findElement(By.xpath(".//span"));
         amountField.click();
-        WebElement amountInput = amountRow.findElement(By.tagName("input"));
+    }
+
+    private WebElement fillAmountInput(String value){
+        WebElement amountInput = getAmountRow().findElement(By.tagName("input"));
         clearInput(amountInput);
         amountInput.sendKeys(value);
-        //amountInput.sendKeys(Keys.chord(Keys.CONTROL, "a"));
-        amountInput.sendKeys(Keys.ENTER);
+        return amountInput;
     }
 
     public void fillMonthAmount(Integer value) {
@@ -51,8 +71,4 @@ public class CashCreditPage extends GenericCreditPage {
         amountInput.sendKeys(value);
         amountInput.sendKeys(Keys.ENTER);
     }
-
-
-
-
 }

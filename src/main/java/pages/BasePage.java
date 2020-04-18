@@ -1,5 +1,6 @@
 package pages;
 
+import org.openqa.selenium.By;
 import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -7,15 +8,21 @@ import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
-abstract class BasePage {
+public abstract class BasePage {
 
     protected WebDriver driver;
 
     protected WebDriverWait wait;
 
-    public BasePage(WebDriver driver) {
+    protected String title = "";
+
+    public BasePage(WebDriver driver, String title) {
         this.driver = driver;
+        this.title = title;
         wait = new WebDriverWait(driver, 10);
+        if(!driver.getTitle().equals(title)){
+            throw new RuntimeException("Открыта другая страница.");
+        }
     }
 
     protected void clearInput(WebElement element) {
@@ -26,9 +33,14 @@ abstract class BasePage {
         }
     }
 
-    protected void scrollToElement(WebElement element){
+    protected void scrollToElement(WebElement element) {
         Actions actions = new Actions(driver);
-        actions.moveToElement(element);
+        actions.moveToElement(element, 100, 0);
         actions.perform();
+    }
+
+    protected void closeCookie() {
+        wait.until(ExpectedConditions.elementToBeClickable(driver.findElement(By.className("cookie-warning__close"))))
+            .click();
     }
 }

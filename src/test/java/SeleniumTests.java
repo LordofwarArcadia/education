@@ -2,15 +2,11 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
-import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebDriverException;
-import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
 import pages.CashCreditPage;
+import pages.HomePage;
 
-import java.util.ArrayList;
-import java.util.List;
 import java.util.concurrent.TimeUnit;
 
 public class SeleniumTests {
@@ -26,7 +22,9 @@ public class SeleniumTests {
     public void setupDriver() {
         driver = new ChromeDriver();
         driver.manage().timeouts().implicitlyWait(3, TimeUnit.SECONDS);
-        driver.get("https://www.sberbank.ru/ru/person/credits/money/consumer_unsecured");
+        driver.get("https://www.sberbank.ru/");
+        //        driver.get("https://www.sberbank.ru/ru/person/credits/money/consumer_unsecured");
+        driver.manage().window().fullscreen();
     }
 
     @After
@@ -35,17 +33,25 @@ public class SeleniumTests {
     }
 
     @Test
-    public void simpleSeleniumTest() throws Exception {
+    public void simpleSeleniumTest() {
+        // Arrange
+        HomePage hp = new HomePage(driver);
+        // ЗДЕСЬ ПОКА НЕ ДОРАБОТАНО
+        hp.menu.clickOnMenuItem("Кредиты", "Кредит на любые цели");
         CashCreditPage page = new CashCreditPage(driver);
 
         // Act
-        page.fillMoneyAmount(1000000);
+        page.fillMoneyAmountAndSubmit(1000000);
         page.fillMonthAmount(50);
 
         // Assert
         assert page.getMonthlyPayment().equals("25 959");
+    }
 
-        List<WebElement> list = new ArrayList<>();
+
+}
+
+/* List<WebElement> list = new ArrayList<>();
         list.add(driver.findElement(By.xpath("//body")));
 
         WebElement first = list.stream()
@@ -62,12 +68,8 @@ public class SeleniumTests {
                 return href != null && href.equals("");
             })
             .findFirst()
-            .orElseThrow(RuntimeException::new);
+            .orElseThrow(RuntimeException::new);*/
 
-    }
-
-
-}
 
 /*
     <body>
