@@ -12,12 +12,12 @@ public class MainMenu extends BaseSection {
 
     private void hoverOnMainMenuItem(String name) {
         Actions actions = new Actions(driver);
-        actions.moveToElement(driver.findElement(By.xpath("//div[.='" + name + "']")), 5, 5);
+        actions.moveToElement(driver.findElement(By.xpath("//span[.='" + name + "']")), 5, 5);
         actions.perform();
     }
 
     private void clickOnMenuSubItem(String name) {
-        driver.findElement(By.xpath("//div[.='" + name + "']"));
+        driver.findElement(By.linkText(name)).click();
     }
 
     // Usage: clickOnMenuItem("Кредиты", "Автокредит");

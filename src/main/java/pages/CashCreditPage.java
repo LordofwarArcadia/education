@@ -11,7 +11,7 @@ public class CashCreditPage extends GenericCreditPage {
     public MainMenu menu;
 
     public CashCreditPage(WebDriver driver) {
-        super(driver, "Сбербанк. Потребительский кредит на любые цели.");
+        super(driver, "«Сбербанк» - Потребительский кредит, кредит на любые цели");
         closeCookie();
         menu = new MainMenu(driver);
     }

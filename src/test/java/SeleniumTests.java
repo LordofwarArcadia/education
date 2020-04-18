@@ -36,7 +36,6 @@ public class SeleniumTests {
     public void simpleSeleniumTest() {
         // Arrange
         HomePage hp = new HomePage(driver);
-        // ЗДЕСЬ ПОКА НЕ ДОРАБОТАНО
         hp.menu.clickOnMenuItem("Кредиты", "Кредит на любые цели");
         CashCreditPage page = new CashCreditPage(driver);
 

@@ -8,7 +8,7 @@ public class HomePage extends BasePage {
     public MainMenu menu;
 
     public HomePage(WebDriver driver) {
-        super(driver);
+        super(driver,"«Сбербанк» - Частным клиентам");
         menu = new MainMenu(driver);
     }
 }
