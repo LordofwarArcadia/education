@@ -28,13 +28,12 @@ public class CashCreditPage extends GenericCreditPage {
     }
 
     public void fillMoneyAmountAndSubmit(String value) {
-        clickOnSpanMoney();
-        fillAmountInput(value).sendKeys(Keys.ENTER);
+        fillMoneyAmountWithoutSubmit(value).sendKeys(Keys.ENTER);
     }
 
-    public void fillMoneyAmountWithoutSubmit(String value) {
+    public WebElement fillMoneyAmountWithoutSubmit(String value) {
         clickOnSpanMoney();
-        fillAmountInput(value);
+        return fillAmountInput(value);
     }
 
     private WebElement getAmountRow(){
