@@ -1,19 +1,29 @@
 import org.junit.After;
-import org.junit.AfterClass;
 import org.junit.Before;
 import org.junit.BeforeClass;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.chrome.ChromeDriver;
+
+import java.util.concurrent.TimeUnit;
 
 public abstract class AbstractTestBase {
 
+    WebDriver driver;
+
     @BeforeClass
-    @AfterClass
-    public static void globalSetupTearDownCommonForMultipleTestSuites(){
-        System.out.println("Данный метод является общим для всех классов, выполняется единожды.");
+    public static void addDriverToPath() {
+        System.setProperty("webdriver.chrome.driver", "/Users/akobchenko/Repositories/dayone/chromedriver");
     }
 
     @Before
+    public void setupDriver() {
+        driver = new ChromeDriver();
+        driver.manage().timeouts().implicitlyWait(3, TimeUnit.SECONDS);
+        driver.manage().window().fullscreen();
+    }
+
     @After
-    public void globalBeforeAfterEach(){
-        System.out.println("Данный метод является общим для всех тестов, выполняется для (до/после) каждого теста.");
+    public void quitDriver() {
+        driver.quit();
     }
 }

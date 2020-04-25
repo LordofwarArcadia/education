@@ -23,6 +23,13 @@ public class CashCreditPage extends GenericCreditPage {
             .getText();
     }
 
+    public String getMonthsText(){
+        WebElement amountRow = getCalcForm().findElement(By.xpath(".//div[.='Срок кредита']/.."));
+        scrollToElement(amountRow);
+        // activate our input
+        return amountRow.findElement(By.xpath(".//span")).getText();
+    }
+
     public void fillMoneyAmountAndSubmit(Integer value) {
         fillMoneyAmountAndSubmit(value.toString());
     }
@@ -68,6 +75,12 @@ public class CashCreditPage extends GenericCreditPage {
         WebElement amountInput = amountRow.findElement(By.tagName("input"));
         clearInput(amountInput);
         amountInput.sendKeys(value);
+    }
+
+    public void submitMonthAmount(){
+        WebElement amountRow = getCalcForm().findElement(By.xpath(".//div[.='Срок кредита']/.."));
+        scrollToElement(amountRow);
+        WebElement amountInput = amountRow.findElement(By.tagName("input"));
         amountInput.sendKeys(Keys.ENTER);
     }
 }

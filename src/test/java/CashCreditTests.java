@@ -1,40 +1,23 @@
-import org.junit.After;
+import junitparams.JUnitParamsRunner;
+import junitparams.Parameters;
 import org.junit.Before;
-import org.junit.BeforeClass;
 import org.junit.Test;
-import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.chrome.ChromeDriver;
+import org.junit.runner.RunWith;
 import pages.CashCreditPage;
 import pages.HomePage;
 
-import java.util.concurrent.TimeUnit;
-
-public class SeleniumTests {
-
-    WebDriver driver;
-
-    @BeforeClass
-    public static void addDriverToPath() {
-        System.setProperty("webdriver.chrome.driver", "/Users/akobchenko/Repositories/dayone/chromedriver");
-    }
+@RunWith(JUnitParamsRunner.class)
+public class CashCreditTests extends AbstractTestBase {
 
     @Before
-    public void setupDriver() {
-        driver = new ChromeDriver();
-        driver.manage().timeouts().implicitlyWait(3, TimeUnit.SECONDS);
-        driver.get("https://www.sberbank.ru/");
-        //        driver.get("https://www.sberbank.ru/ru/person/credits/money/consumer_unsecured");
-        driver.manage().window().fullscreen();
-    }
-
-    @After
-    public void quitDriver() {
-        driver.quit();
+    public void openCashCreditPage() {
+        driver.get("https://www.sberbank.ru/ru/person/credits/money/consumer_unsecured");
     }
 
     @Test
     public void simpleSeleniumTest() {
         // Arrange
+        driver.get("https://www.sberbank.ru/");
         HomePage hp = new HomePage(driver);
         hp.menu.clickOnMenuItem("Кредиты", "Кредит на любые цели");
         CashCreditPage page = new CashCreditPage(driver);
@@ -47,8 +30,65 @@ public class SeleniumTests {
         assert page.getMonthlyPayment().equals("25 959");
     }
 
+    private Object[] parametersToTestMonths() {
+        return new Object[]{
+            new Object[]{"12", "12 месяцев", "1 год"},
+            new Object[]{"61", "61 месяц", "5 лет"},
+            new Object[]{"2", "2 месяца", "3 месяца"}
+        };
+    }
 
+    @Test
+    @Parameters(method = "parametersToTestMonths")
+    public void dateMonthsToYearConvertTest(
+        String enteredValue,
+        String valueBeforeSubmit,
+        String expectedValue) {
+        // Arrange
+        CashCreditPage page = new CashCreditPage(driver);
+
+        // Act
+        page.fillMonthAmount(enteredValue);
+
+        // Assert
+        assert page.getMonthsText().equals(valueBeforeSubmit);
+    }
+
+    @Test
+    @Parameters(method = "parametersToTestMonths")
+    public void dateMonthsToYearConvertAfterSubmitTest(
+        String enteredValue,
+        String valueBeforeSubmit,
+        String expectedValue) {
+        // Arrange
+        CashCreditPage page = new CashCreditPage(driver);
+
+        // Act
+        page.fillMonthAmount(enteredValue);
+        page.submitMonthAmount();
+
+        // Assert
+        assert page.getMonthsText().equals(expectedValue);
+
+    }
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 /* List<WebElement> list = new ArrayList<>();
         list.add(driver.findElement(By.xpath("//body")));
