@@ -1,0 +1,21 @@
+Feature: Check click button getting alot of money
+
+Scenario: 1time
+Given Im on a home page
+When I click bla-bla button
+Then I see 100000 in my pocket
+
+Scenario: 2times
+Given Im on a home page
+When I click bla-bla button
+And I click bla-bla button
+Then I see 200000 in my pocket
+
+Scenario: 3times
+Given Im on a home page
+When I click bla-bla button
+And I click bla-bla button
+And I click bla-bla button
+Then I see 300000 in my pocket
+
+

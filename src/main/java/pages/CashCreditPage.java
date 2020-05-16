@@ -83,4 +83,8 @@ public class CashCreditPage extends GenericCreditPage {
         WebElement amountInput = amountRow.findElement(By.tagName("input"));
         amountInput.sendKeys(Keys.ENTER);
     }
+
+    public void checkCheckbox(Boolean desiredState){
+
+    }
 }

@@ -16,7 +16,7 @@ public abstract class BasePage {
 
     protected String title = "";
 
-    public BasePage(WebDriver driver, String title) {
+    BasePage(WebDriver driver, String title) {
         this.driver = driver;
         this.title = title;
         wait = new WebDriverWait(driver, 10);
