@@ -1,6 +1,5 @@
 package xmlgen;
 
-import org.w3c.dom.Document;
 import xmlgen.model.InsAmout;
 import xmlgen.model.Operation;
 import xmlgen.model.TotalAmount;
@@ -8,12 +7,6 @@ import xmlgen.model.TotalAmount;
 import javax.xml.bind.JAXBContext;
 import javax.xml.bind.JAXBException;
 import javax.xml.bind.Marshaller;
-import javax.xml.bind.PropertyException;
-import javax.xml.transform.Transformer;
-import javax.xml.transform.TransformerException;
-import javax.xml.transform.TransformerFactory;
-import javax.xml.transform.dom.DOMSource;
-import javax.xml.transform.stream.StreamResult;
 import java.io.StringWriter;
 
 public class Generator {
@@ -33,10 +26,9 @@ public class Generator {
 
         jaxbObjectToXML(op);
     }
-    private static void jaxbObjectToXML(Operation operation)
-    {
-        try
-        {
+
+    private static void jaxbObjectToXML(Operation operation) {
+        try {
             //Create JAXB Context
             JAXBContext jaxbContext = JAXBContext.newInstance(Operation.class);
 
@@ -54,7 +46,7 @@ public class Generator {
 
             //Verify XML Content
             String xmlContent = sw.toString();
-            System.out.println( xmlContent );
+            System.out.println(xmlContent);
 
         } catch (JAXBException e) {
             e.printStackTrace();
