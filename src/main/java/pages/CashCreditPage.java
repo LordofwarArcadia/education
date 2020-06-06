@@ -6,6 +6,7 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import pages.sections.MainMenu;
 
+
 public class CashCreditPage extends GenericCreditPage {
 
     public MainMenu menu;
@@ -14,6 +15,7 @@ public class CashCreditPage extends GenericCreditPage {
         super(driver, "«Сбербанк» - Потребительский кредит, кредит на любые цели");
         closeCookie();
         menu = new MainMenu(driver);
+
     }
 
     public String getMonthlyPayment() {

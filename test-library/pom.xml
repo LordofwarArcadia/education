@@ -9,17 +9,8 @@
     </parent>
     <modelVersion>4.0.0</modelVersion>
 
-    <artifactId>dayfour</artifactId>
+    <artifactId>test-library</artifactId>
+    <version>1.0.1-SNAP</version>
 
-    <properties>
-        <java.version>12</java.version>
-    </properties>
-    <dependencies>
-        <dependency>
-            <groupId>edu.marina</groupId>
-            <artifactId>test-library</artifactId>
-            <version>1.0.0-SNAPSHOT</version>
-        </dependency>
-    </dependencies>
 
 </project>

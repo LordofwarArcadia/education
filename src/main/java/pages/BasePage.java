@@ -7,6 +7,7 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
+import pages.conditions.CustomCondition;
 
 public abstract class BasePage {
 
@@ -23,6 +24,7 @@ public abstract class BasePage {
         if(!driver.getTitle().equals(title)){
             throw new RuntimeException("Открыта другая страница.");
         }
+        wait.until(CustomCondition.ourCustomExpectedCondition(1));
     }
 
     protected void clearInput(WebElement element) {
